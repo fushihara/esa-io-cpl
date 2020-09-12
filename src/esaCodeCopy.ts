@@ -25,6 +25,9 @@ export class EsaCodeCopy {
     styleEl.sheet.insertRule(`pre.highlight {line-height:12px;font-size:12px;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; }`);
   }
 }
+function copyText(str: string) {
+  navigator.clipboard.writeText(str);
+}
 type ButtonType = { button: HTMLButtonElement, type: ("all" | "path") };
 function getButtons(filePath: string): ButtonType[] {
   const result: ButtonType[] = [];
@@ -32,6 +35,9 @@ function getButtons(filePath: string): ButtonType[] {
   if (1 < splitPath.length) {
     const element = document.createElement("button");
     element.innerText = filePath;
+    element.addEventListener("click", () => {
+      copyText(filePath);
+    });
     result.push({
       button: element,
       type: "all"
@@ -40,6 +46,9 @@ function getButtons(filePath: string): ButtonType[] {
   for (let path of splitPath) {
     const element = document.createElement("button");
     element.innerText = path;
+    element.addEventListener("click", () => {
+      copyText(path);
+    });
     result.push({
       button: element,
       type: "path"
@@ -47,12 +56,3 @@ function getButtons(filePath: string): ButtonType[] {
   }
   return result;
 }
-
-(async () => {
-  let number = 410868;
-  while (true) {
-    const isPrivate = await fetch(`https://greasyfork.org/en/scripts/${number}`).then(res => res.text().then(text => text.includes(`<meta name="robots" content="noindex,follow">`)));
-    console.log(`${number} is ${isPrivate ? "private" : "public"}`);
-    number -= 1;
-  }
-})()
