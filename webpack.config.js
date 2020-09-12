@@ -30,7 +30,7 @@ module.exports = {
       // @grant        none
       // @license      MIT
       // @source       https://github.com/fushihara/esa-io-cpl
-      // @homepage     https://greasyfork.org/ja/scripts/
+      // @homepage     https://greasyfork.org/ja/scripts/410892
       // @noframes
       // ==/UserScript==`.split("\n").map(a => a.trim()).join("\n"),
       raw: true,
