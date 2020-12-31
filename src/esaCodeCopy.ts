@@ -22,7 +22,7 @@ export class EsaCodeCopy {
     styleEl.sheet.insertRule(`.markdown .code-block__copy-button.${cssPrefix}{ position: absolute;top: -25px;right: 0;border:0;}`);
     styleEl.sheet.insertRule(`.markdown .code-block__copy-button.${cssPrefix} button{ font-family: monospace; font-size: 13px;line-height: 13px; }`);
     // デフォルトのコードハイライトの高さを変える
-    styleEl.sheet.insertRule(`pre.highlight {line-height:12px;font-size:13px;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; }`);
+    styleEl.sheet.insertRule(`pre.highlight {line-height:13px;font-size:12px;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; }`);
   }
 }
 function copyText(str: string) {
