@@ -2,14 +2,17 @@ const styleRuleInsertLog: WeakMap<Document, boolean> = new WeakMap();
 const cssPrefix = `k777`;
 export class EsaCodeCopy {
   constructor(private readonly element: HTMLDivElement) {
-    const fileName = element.querySelector<HTMLElement>('.code-filename').innerText;
-    const insertElement = document.createElement('div');
-    insertElement.classList.add(cssPrefix);
-    insertElement.classList.add('code-block__copy-button');
-    for (let v of getButtons(fileName)) {
-      insertElement.appendChild(v.button);
+    const fileNameElement = element.querySelector<HTMLElement>(".code-filename");
+    if (fileNameElement) {
+      const fileName = element.querySelector<HTMLElement>(".code-filename").innerText;
+      const insertElement = document.createElement("div");
+      insertElement.classList.add(cssPrefix);
+      insertElement.classList.add("code-block__copy-button");
+      for (let v of getButtons(fileName)) {
+        insertElement.appendChild(v.button);
+      }
+      element.querySelector(".highlight").appendChild(insertElement);
     }
-    element.querySelector('.highlight').appendChild(insertElement);
     EsaCodeCopy.insertStyleRule();
   }
   private static insertStyleRule() {
@@ -17,7 +20,7 @@ export class EsaCodeCopy {
       return;
     }
     styleRuleInsertLog.set(document, true);
-    const styleEl = document.createElement('style');
+    const styleEl = document.createElement("style");
     document.head.appendChild(styleEl);
     styleEl.sheet.insertRule(`.markdown .code-block__copy-button.${cssPrefix}{ position: absolute;top: -25px;right: 0;border:0;}`);
     styleEl.sheet.insertRule(`.markdown .code-block__copy-button.${cssPrefix} button{ font-family: monospace; font-size: 13px;line-height: 13px; }`);
@@ -28,30 +31,30 @@ export class EsaCodeCopy {
 function copyText(str: string) {
   navigator.clipboard.writeText(str);
 }
-type ButtonType = {button: HTMLButtonElement; type: 'all' | 'path'};
+type ButtonType = {button: HTMLButtonElement; type: "all" | "path"};
 function getButtons(filePath: string): ButtonType[] {
   const result: ButtonType[] = [];
   const splitPath = [...filePath.split(/[\\\/]/)];
   if (1 < splitPath.length) {
-    const element = document.createElement('button');
+    const element = document.createElement("button");
     element.innerText = filePath;
-    element.addEventListener('click', () => {
+    element.addEventListener("click", () => {
       copyText(filePath);
     });
     result.push({
       button: element,
-      type: 'all',
+      type: "all",
     });
   }
   for (let path of splitPath) {
-    const element = document.createElement('button');
+    const element = document.createElement("button");
     element.innerText = path;
-    element.addEventListener('click', () => {
+    element.addEventListener("click", () => {
       copyText(path);
     });
     result.push({
       button: element,
-      type: 'path',
+      type: "path",
     });
   }
   return result;
